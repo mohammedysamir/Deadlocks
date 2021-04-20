@@ -10,9 +10,34 @@ public class main {
                 3.2. Maximum resources.
         */
     // what to do: we need to calculate need matrix and update available after each request or release.
-    static void Request(int Process_no,int Resource_no,int Requested_amt){
-
+    static void Request(int Process_no,int[] Requested_amt,int[] Available,int[] Allocated, int[][] Need){
+        boolean Error=false;
+        for(int i=0;i<Requested_amt.length;i++) {
+            //handling request >= need
+            if(Requested_amt[i] >= Need[i][Process_no])
+            {
+                System.out.println("Error: Request resource #"+ (i+1)+" out of defined Needs");
+                Error=true;
+                break;
+            }
+            //handling request >= available
+            if(Requested_amt[i] >=Available[i])
+            {
+                System.out.println("Error: Request resource #"+ (i+1)+" out of Available resources #"+(i+1));
+                Error=true;
+                break;
+            }
+        }
+        if(Error)return;
+        //pretend to allocate
+        for(int i=0;i<Requested_amt.length;i++) {
+            Available[i]-=Requested_amt[i];
+            Need[i][Process_no]-=Requested_amt[i];
+            Allocated[i]+=Requested_amt[i];
+        }
     }
+
+    //Release just handling amount released to not go out of bounds
     static void Release(int Process_no,int[] Released_amt, int[] Available , int[][] Allocated){
         for(int i=0;i<Released_amt.length;i++){
             if(Allocated[Process_no][i]<Released_amt[i]){
