@@ -10,6 +10,25 @@ public class main {
                 3.2. Maximum resources.
         */
     // what to do: we need to calculate need matrix and update available after each request or release.
+    static void Request(int Process_no,int Resource_no,int Requested_amt){
+
+    }
+    static void Release(int Process_no,int[] Released_amt, int[] Available , int[][] Allocated){
+        for(int i=0;i<Released_amt.length;i++){
+            if(Allocated[Process_no][i]<Released_amt[i]){
+                System.out.println("Error: Can't release resource's instance #"+(i+1)+" released amount greater than allocated");
+                return;
+            }
+            else{
+                //release resources from the process allocation
+                Allocated[Process_no][i]-=Released_amt[i];
+                //re-add resources to Available
+                Available[i]+=Released_amt[i];
+            }
+        }
+        System.out.println("Process #"+Process_no+" has released the desired resources.");
+    }
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         int noResources, noProcesses;
@@ -18,7 +37,7 @@ public class main {
         System.out.print("Enter number of Processes: ");
         noProcesses = scan.nextInt();
         //a list to carry number of instances for each resource
-        Integer[] Available = new Integer[noResources];
+        int[] Available = new int[noResources];
         System.out.println("*************************************************");
         System.out.println("Enter number of instances for each resource type");
         for (int i = 0; i < noResources; i++) {
@@ -27,7 +46,7 @@ public class main {
             Available[i] = instance;
         }
         //Creating the matrices
-        Integer[][] Allocated = new Integer[noProcesses][noResources];
+        int[][] Allocated = new int[noProcesses][noResources];
         System.out.println("*************************************************");
         System.out.println("Fill allocated resources to each process.");
         for (int i = 0; i < noProcesses; i++) {
@@ -69,6 +88,35 @@ public class main {
             System.out.print(Available[i] + " ");
         }
         */
+        boolean Continue;
+        do{
+        Continue=true;
+        int choice;
+        System.out.println("1. Request additional resources.\n2. Release resources.");
+        choice=scan.nextInt();
+        switch(choice){
+            case 1:
+
+                break;
+            case 2:
+                System.out.println("Enter number of process and set of amount of released resources");
+                int Process_no=scan.nextInt();
+                int[] ResourcesReleased=new int[noResources];
+                for(int i=0;i<noResources;i++){
+                    int amount=scan.nextInt();
+                    ResourcesReleased[i]=amount;
+                }
+                Release(Process_no,ResourcesReleased,Available,Allocated);
+            System.out.println("*************************************************");
+            System.out.print("Available: ");
+            for (int i = 0; i < noResources; i++) {
+                System.out.print(Available[i] + " ");
+            }
+                break;
+        }
+        System.out.println("Do you want to request or release another resources ?");
+        Continue=scan.nextBoolean();
+        }while(Continue);
         scan.close();
     }
 }
