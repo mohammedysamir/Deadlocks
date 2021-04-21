@@ -137,29 +137,34 @@ public class main {
             System.out.print(Available[i] + " ");
         }
         */
-        if(isSafe(noProcesses,Available,Need,Allocated)) {
+        if (isSafe(noProcesses, Available, Need, Allocated)) {
             boolean Continue;
             do {
                 Continue = true;
                 int choice;
                 System.out.println("1. Request additional resources.\n2. Release resources.\n3. Print all data");
                 choice = scan.nextInt();
-                System.out.println("Enter number of process");
                 int Process_no;
                 switch (choice) {
                     case 1:
-                        System.out.println("and set of amount of requested resources");
+                        System.out.println("Enter number of process");
                         Process_no = scan.nextInt();
+                        System.out.println("and set of amount of requested resources");
                         int[] ResourceRequested = new int[noResources];
                         for (int i = 0; i < noResources; i++) {
                             int amount = scan.nextInt();
                             ResourceRequested[i] = amount;
                         }
-                        Request(Process_no, ResourceRequested, Available, Allocated, Need);
+                        if (isSafe(noProcesses, Available, Need, Allocated))
+                            Request(Process_no, ResourceRequested, Available, Allocated, Need);
+                        else{
+                            System.out.println("Can't allocate these resources.");
+                        }
                         break;
                     case 2:
-                        System.out.println("and set of amount of released resources");
+                        System.out.println("Enter number of process");
                         Process_no = scan.nextInt();
+                        System.out.println("and set of amount of released resources");
                         int[] ResourcesReleased = new int[noResources];
                         for (int i = 0; i < noResources; i++) {
                             int amount = scan.nextInt();
