@@ -53,7 +53,7 @@ public class main {
     }
 
     static boolean isSafe(int no_processes, int[] Available, int[][] Need, int[][] Allocated) {
-        int[] Work = Available;
+        int[] Work = Available.clone();
         boolean[] Finish = new boolean[no_processes];
         for (int i = 0; i < no_processes; i++) {
             //init finish to false
