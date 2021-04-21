@@ -122,21 +122,6 @@ public class main {
                 Need[i][j] = Max[i][j] - Allocated[i][j];
             }
         }
-        /* for testing purposes
-        System.out.println("*************************************************");
-        System.out.println("Need Matrix:");
-        for (int i = 0; i < noProcesses; i++) {
-            for (int j = 0; j < noResources; j++) {
-                System.out.print(Need[i][j] + " ");
-            }
-            System.out.print("\n");
-        }
-        System.out.println("*************************************************");
-        System.out.print("Available: ");
-        for (int i = 0; i < noResources; i++) {
-            System.out.print(Available[i] + " ");
-        }
-        */
         if (isSafe(noProcesses, Available, Need, Allocated)) {
             boolean Continue;
             do {
