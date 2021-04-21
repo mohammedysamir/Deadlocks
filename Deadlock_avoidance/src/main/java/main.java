@@ -137,70 +137,72 @@ public class main {
             System.out.print(Available[i] + " ");
         }
         */
-        boolean Continue;
-        do {
-            Continue = true;
-            int choice;
-            System.out.println("1. Request additional resources.\n2. Release resources.\n3. Print all data");
-            choice = scan.nextInt();
-            System.out.println("Enter number of process");
-            int Process_no;
-            switch (choice) {
-                case 1:
-                    System.out.println("and set of amount of requested resources");
-                    Process_no = scan.nextInt();
-                    int[] ResourceRequested = new int[noResources];
-                    for (int i = 0; i < noResources; i++) {
-                        int amount = scan.nextInt();
-                        ResourceRequested[i] = amount;
-                    }
-                    Request(Process_no, ResourceRequested, Available, Allocated, Need);
-                    break;
-                case 2:
-                    System.out.println("and set of amount of released resources");
-                    Process_no = scan.nextInt();
-                    int[] ResourcesReleased = new int[noResources];
-                    for (int i = 0; i < noResources; i++) {
-                        int amount = scan.nextInt();
-                        ResourcesReleased[i] = amount;
-                    }
-                    Release(Process_no, ResourcesReleased, Available, Allocated);
-                    break;
-                case 3:
-                    System.out.println("*************************************************");
-                    System.out.print("Available: ");
-                    for (int i = 0; i < noResources; i++) {
-                        System.out.print(Available[i] + " ");
-                    }
-                    System.out.println("*************************************************");
-                    System.out.println("Allocated Matrix:");
-                    for (int i = 0; i < noProcesses; i++) {
-                        for (int j = 0; j < noResources; j++) {
-                            System.out.print(Allocated[i][j] + " ");
+        if(isSafe(noProcesses,Available,Need,Allocated)) {
+            boolean Continue;
+            do {
+                Continue = true;
+                int choice;
+                System.out.println("1. Request additional resources.\n2. Release resources.\n3. Print all data");
+                choice = scan.nextInt();
+                System.out.println("Enter number of process");
+                int Process_no;
+                switch (choice) {
+                    case 1:
+                        System.out.println("and set of amount of requested resources");
+                        Process_no = scan.nextInt();
+                        int[] ResourceRequested = new int[noResources];
+                        for (int i = 0; i < noResources; i++) {
+                            int amount = scan.nextInt();
+                            ResourceRequested[i] = amount;
                         }
-                        System.out.print("\n");
-                    }
-                    System.out.println("*************************************************");
-                    System.out.println("Maximum Matrix:");
-                    for (int i = 0; i < noProcesses; i++) {
-                        for (int j = 0; j < noResources; j++) {
-                            System.out.print(Max[i][j] + " ");
+                        Request(Process_no, ResourceRequested, Available, Allocated, Need);
+                        break;
+                    case 2:
+                        System.out.println("and set of amount of released resources");
+                        Process_no = scan.nextInt();
+                        int[] ResourcesReleased = new int[noResources];
+                        for (int i = 0; i < noResources; i++) {
+                            int amount = scan.nextInt();
+                            ResourcesReleased[i] = amount;
                         }
-                        System.out.print("\n");
-                    }
-                    System.out.println("*************************************************");
-                    System.out.println("Need Matrix:");
-                    for (int i = 0; i < noProcesses; i++) {
-                        for (int j = 0; j < noResources; j++) {
-                            System.out.print(Need[i][j] + " ");
+                        Release(Process_no, ResourcesReleased, Available, Allocated);
+                        break;
+                    case 3:
+                        System.out.println("*************************************************");
+                        System.out.print("Available: ");
+                        for (int i = 0; i < noResources; i++) {
+                            System.out.print(Available[i] + " ");
                         }
-                        System.out.print("\n");
-                    }
-                    break;
-            }
-            System.out.println("Do you want to request or release another resources ?");
-            Continue = scan.nextBoolean();
-        } while (Continue);
+                        System.out.println("*************************************************");
+                        System.out.println("Allocated Matrix:");
+                        for (int i = 0; i < noProcesses; i++) {
+                            for (int j = 0; j < noResources; j++) {
+                                System.out.print(Allocated[i][j] + " ");
+                            }
+                            System.out.print("\n");
+                        }
+                        System.out.println("*************************************************");
+                        System.out.println("Maximum Matrix:");
+                        for (int i = 0; i < noProcesses; i++) {
+                            for (int j = 0; j < noResources; j++) {
+                                System.out.print(Max[i][j] + " ");
+                            }
+                            System.out.print("\n");
+                        }
+                        System.out.println("*************************************************");
+                        System.out.println("Need Matrix:");
+                        for (int i = 0; i < noProcesses; i++) {
+                            for (int j = 0; j < noResources; j++) {
+                                System.out.print(Need[i][j] + " ");
+                            }
+                            System.out.print("\n");
+                        }
+                        break;
+                }
+                System.out.println("Do you want to request or release another resources ?");
+                Continue = scan.nextBoolean();
+            } while (Continue);
+        }
         scan.close();
     }
 }
